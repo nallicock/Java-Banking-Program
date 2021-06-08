@@ -31,13 +31,21 @@ import javafx.scene.paint.Color;
 public class Main /*extends Application*/ {
 	//Button button;
 	
-	public static void startingUser()
+	
+	public static void promptEnter() //press enter to go to next screen
+	{
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Press Enter to Continue...");
+		scanner.nextLine();
+	}
+	
+	public static void startingUser() //Upon startup, prompt user to input values for the account information
 	{
 		System.out.println("Welcome to Omar Banking\n"
 				+ "To begin, please input the following information:");
 	}
 	
-	public static void menuSelect ()
+	public static void menuSelect () //Prints selection menu, prompt user to choose an option
 	{
 		System.out.print("1. View Account Balance"
 				+ "\n2. Deposit Funds"
@@ -53,39 +61,70 @@ public class Main /*extends Application*/ {
 	{
 		startingUser();
 		
-		String _name;
-		int _accountNumber;
-		String _email;
-		String _address;
-		String _postalCode;
-		String _phoneNumber;
+		String _name = null;
+		String _email = null;
+		String _address = null;
+		String _postalCode = null;
+		String _phoneNumber = null;
 		
 		Scanner userInput = new Scanner(System.in);
 		
-		System.out.print("Please input name: ");
-		_name = userInput.nextLine();
+		while(_name == null) {
+			System.out.print("Please input name: ");	//inputs for Account constructor
+			_name = userInput.nextLine();
+			if (_name.isEmpty())
+			{
+				System.out.print("Invalid input... ");
+				_name = null;
+			}
+		}	
 		
-		System.out.print("Please input email: ");
-		_email = userInput.nextLine();
+		while(_email == null) {
+			System.out.print("Please input email: ");
+			_email = userInput.nextLine();
+			if (_email.isEmpty())
+			{
+				System.out.print("Invalid input... ");
+				_email = null;
+			}
+		}
 		
-		System.out.print("Please input address: ");
-		_address = userInput.nextLine();
+		while(_address == null) {
+			System.out.print("Please input address: ");
+			_address = userInput.nextLine();
+			if (_address.isEmpty())
+			{
+				System.out.print("Invalid input... ");
+				_address = null;
+			}
+		}
 		
-		System.out.print("Please input postal code: ");
-		_postalCode = userInput.nextLine();
+		while(_postalCode == null) {
+			System.out.print("Please input postal code: ");
+			_postalCode = userInput.nextLine();
+			if (_postalCode.isEmpty())
+			{
+				System.out.print("Invalid input... ");
+				_postalCode = null;
+			}
+		}
 		
-		System.out.print("Please input phone number: ");
-		_phoneNumber = userInput.nextLine();
+		while(_phoneNumber == null) {
+			System.out.print("Please input phone number: ");
+			_phoneNumber = userInput.nextLine();
+			if(_phoneNumber.isEmpty())
+			{
+				System.out.print("Invalid input... ");
+				_phoneNumber = null;
+			}
+		}
 		
-		System.out.print("Please input account number: ");
-		_accountNumber = userInput.nextInt();
-		
-		
+		String[] myArray = {"Nicholas"};
 		
 		System.out.println("\n");
 		
 		//launch(args);
-		Account account1 = new Account(_name, _accountNumber, _email, _address, _postalCode, _phoneNumber);
+		Account account1 = new Account(_name, _email, _address, _postalCode, _phoneNumber);
 		
 		Account.Chequings c1 = account1.new Chequings(0);
 		Account.Savings s1 = account1.new Savings(0);
@@ -97,42 +136,45 @@ public class Main /*extends Application*/ {
 			userOption = userInput.nextInt();
 			switch(userOption)
 			{
-			case 1: //viewAccount Details
+			case 1: //view account balance
 				c1.viewBalance();
 				s1.viewBalance();
 				is1.viewBalance();	
+				promptEnter();
 				menuSelect();
 				System.out.println("\n");
 				userOption = -1;
 				break;
 				
-			case 2: //deposit
+			case 2: //deposit funds
 				int choice = -1;
 				Scanner scanner2 = new Scanner(System.in);
 				
+				System.out.println("\n");
 				System.out.print("Please choose the account you wish to deposit to: "
 						+ "\n1. Chequings"
 						+ "\n2. Savings"
 						+ "\n3. 5% Interest Savings"
 						+ "\nEnter option:");
-				System.out.println("\n");
 				
 				
 				choice = scanner2.nextInt();
 				
-				if(choice <= 0 || choice > 3)
+				
+				if(choice <= 0 || choice > 3) 
 				{
 					System.out.println("Invalid entry. Please choose valid option.");
+					promptEnter();
 				}
 				
-				else if (choice == 1)//infinite loop for deposit choices
+				else if (choice == 1)
 				{
 					double dAmount;
 					Scanner scanner3 = new Scanner(System.in);
 					System.out.print("Enter amount to deposit: ");
 					dAmount = scanner3.nextDouble();
-					System.out.println("\n");
 					c1.deposit(dAmount);
+					promptEnter();
 					userOption = -1;
 
 				}
@@ -143,8 +185,8 @@ public class Main /*extends Application*/ {
 					Scanner scanner3 = new Scanner(System.in);
 					System.out.print("Enter amount to deposit: ");
 					dAmount = scanner3.nextDouble();
-					System.out.println("\n");
 					s1.deposit(dAmount);
+					promptEnter();
 					userOption = -1;
 
 				}
@@ -155,8 +197,8 @@ public class Main /*extends Application*/ {
 					Scanner scanner3 = new Scanner(System.in);
 					System.out.print("Enter amount to deposit: ");
 					dAmount = scanner3.nextDouble();
-					System.out.println("\n");
 					is1.deposit(dAmount);
+					promptEnter();
 
 				}
 					userOption = -1;
@@ -170,7 +212,8 @@ public class Main /*extends Application*/ {
 				int wChoice = -1;
 				Scanner scanner4 = new Scanner(System.in);
 				
-				System.out.print("Please choose the account you wish to deposit to: "
+				System.out.println("\n");
+				System.out.print("Please choose the account you wish to withdraw from: "
 						+ "\n1. Chequings"
 						+ "\n2. Savings"
 						+ "\n3. 5% Interest Savings"
@@ -178,14 +221,13 @@ public class Main /*extends Application*/ {
 				
 				
 				wChoice = scanner4.nextInt();
-				System.out.println("\n");
 				
 				if(wChoice <= 0 || wChoice > 3)
 				{
 					System.out.println("\nInvalid entry. Please choose valid option.\n");
 				}
 				
-				else if (wChoice == 1)//infinite loop for deposit choices
+				else if (wChoice == 1)
 				{
 					double wAmount;
 					Scanner scanner5 = new Scanner(System.in);
@@ -193,6 +235,7 @@ public class Main /*extends Application*/ {
 					wAmount = scanner5.nextDouble();
 					System.out.println("\n");
 					c1.withdraw(wAmount);
+					promptEnter();
 					userOption = -1;
 
 				}
@@ -205,6 +248,7 @@ public class Main /*extends Application*/ {
 					wAmount = scanner5.nextDouble();
 					System.out.println("\n");
 					s1.withdraw(wAmount);
+					promptEnter();
 					userOption = -1;
 
 				}
@@ -217,13 +261,13 @@ public class Main /*extends Application*/ {
 					wAmount = scanner5.nextDouble();
 					System.out.println("\n");
 					is1.withdraw(wAmount);
+					promptEnter();
 
 				}
 					userOption = -1;
 				
 				
 				menuSelect();
-				System.out.println("\n");
 				break;
 				
 			case 4: //view details for accounts
@@ -231,15 +275,19 @@ public class Main /*extends Application*/ {
 				s1.viewDetails();
 				is1.viewDetails();
 				userOption = -1;
+				promptEnter();
 				menuSelect();
-				System.out.println("\n");
 				break;
 				
 			case 5: //quit
 				System.out.println("Thank you for choosing Omar banking!");
 				break;
 				
-				default:
+			default:
+				System.out.println("Invalid input. ");
+				promptEnter();
+				menuSelect();
+			
 					
 			}
 			
