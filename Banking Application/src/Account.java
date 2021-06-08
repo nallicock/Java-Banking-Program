@@ -1,3 +1,6 @@
+import java.util.Random;
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Group;
@@ -10,17 +13,18 @@ import javafx.scene.paint.Color;
 public class Account //parent/outer class for the savings and chequings
 {
 	private String ownerName;
-	private int accountNumber;
+	private int accountNumber; 
 	private String email;
 	private String address;
 	private String postalCode;
 	private String phoneNumber;
 	
-	public Account(String _ownerName, int _accountNumber, String _email, 
+	public Account(String _ownerName, String _email, 
 			String _address, String _postalCode, String _phoneNumber)
 	{
+		Random random = new Random();
 		this.ownerName = _ownerName;
-		this.accountNumber = _accountNumber;
+		this.accountNumber = random.nextInt(10000 - 5000 + 1) + 5000; //generates random number for the account number. One account number for each instance of Account
 		this.email = _email;
 		this.address = _address;
 		this.postalCode = _postalCode;
@@ -53,7 +57,7 @@ public class Account //parent/outer class for the savings and chequings
 		return this.phoneNumber;
 	}
 	
-	public class Chequings//inner class of account
+	public class Chequings//inner class of Account
 	{
 		private String accountType = "Chequings";
 		private double balance = 0;
@@ -96,6 +100,7 @@ public class Account //parent/outer class for the savings and chequings
 					+ "Email: " + getEmail()
 					+ "\nAddress: " + getAddress()
 					+ "\nPostal Code: " + getPostalCode()
+					+ "\nAccount Number: " + getAccountNumber()
 					+ "\nPhone Number: " + getPhoneNumber() + "\n");
 		}
 		
@@ -145,12 +150,13 @@ public class Account //parent/outer class for the savings and chequings
 					+ "Email: " + getEmail()
 					+ "\nAddress: " + getAddress()
 					+ "\nPostal Code: " + getPostalCode()
+					+ "\nAccount Number: " + getAccountNumber()
 					+ "\nPhone Number: " + getPhoneNumber() + "\n");
 		}
 	
 	}
 	
-	public class InterestSavings extends Savings
+	public class InterestSavings extends Savings //inherits Savings...
 	{	
 		private double balance;
 		private String accountType = "Interest Savings";
@@ -198,6 +204,7 @@ public class Account //parent/outer class for the savings and chequings
 					+ "Email: " + getEmail()
 					+ "\nAddress: " + getAddress()
 					+ "\nPostal Code: " + getPostalCode()
+					+ "\nAccount Number: " + getAccountNumber()
 					+ "\nPhone Number: " + getPhoneNumber() + "\n");
 		}
 		
